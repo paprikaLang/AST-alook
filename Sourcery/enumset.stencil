@@ -1,0 +1,10 @@
+{% for enum in types.implementing.EnumSet|enum %}
+extension {{ enum.name }} {
+    {% if not enum.hasAssociatedValues %}
+    static let all: [{{ enum.name }}] = [
+    {% for case in enum.cases %}    .{{ case.name }}{% if not forloop.last %},{% endif %}
+    {% endfor %}]
+    {% endif %}
+    static let count: Int = {{ enum.cases.count }}
+}
+{% endfor %}
