@@ -1,0 +1,10 @@
+# Hashes of file build rules.
+a8acb2f502d846df568ab3eb4050068a Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-build
+21c0a95c8cdf6c21f734dc66c0166970 Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-configure
+267667a2aa9c542d830c0c812842f34e Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-download
+29afa63f3a3cfa8525a8affeb89d1abd Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-install
+8f75e7a272b926973cf19f673b0fff0e Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-mkdir
+7181acc424b6b6ce673fc8913d4af500 Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-patch
+781add686f7f7d89103339bc40da87be Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-update
+3b4004dc4385ba962162eea1eb1ff3bd CMakeFiles/Antlr4-cpp
+4be1c7cffc8b62b2e611aef593345605 CMakeFiles/Antlr4-cpp-complete

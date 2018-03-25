@@ -1,0 +1,12 @@
+#(program (statement a = (expression 2)) (statement b = (expression 0)) (statement (expression (expression ( (expression (expression 1) + (expression b)) )) * (expression a))))
+
+(program 
+	(statement a = (expression 2)) 
+	(statement b = (expression 0)) 
+	(statement 
+		(expression 
+			(expression 
+				(  (expression (expression 1) + (expression b)) )) 
+				* 
+				(expression a)
+			)))

@@ -1,0 +1,2 @@
+1.sourcery --sources ./Sourcery.swift --templates ./enumset.stencil
+2.sourcery --sources ./dicconvertable.swift --templates ./dicconvertable.stencil --watch

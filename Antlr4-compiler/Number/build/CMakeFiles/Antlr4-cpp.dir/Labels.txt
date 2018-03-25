@@ -1,0 +1,13 @@
+# Target labels
+ Antlr4-cpp
+# Source files and their labels
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/Antlr4-cpp
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/Antlr4-cpp.rule
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/Antlr4-cpp-complete.rule
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-install.rule
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-mkdir.rule
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-download.rule
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-update.rule
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-patch.rule
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-configure.rule
+/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/Antlr4-cpp-prefix/src/Antlr4-cpp-stamp/Antlr4-cpp-build.rule
