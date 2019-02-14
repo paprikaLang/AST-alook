@@ -41,6 +41,8 @@ document.body.appendChild(dom);
 // virtual DOM 对象转成 json 打印出来.
 var json = JSON.stringify(vdom, null, '  ');
 
+console.log(json);
+
 //查看 DOM 语法树
 document.body.appendChild(render(h(
 	'pre',

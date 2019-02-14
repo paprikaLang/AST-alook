@@ -1,122 +1,53 @@
+<img src="/img/sourcery.jpg" width="750"/>
 
-### JavaScript
-
-JS引擎在分词,解析,生成语法树 **AST** 之后, 像 `var a = 2` 这样的表达式会被处理成:
-```
-  var a;  //左子树: 声明.
-  a = 2;  //右子树: 赋值.
-```
-Esprima 可以将 AST 进行转换并重新生成代码, var a = 2 变成了 let a = 2.   [查看demo](https://github.com/paprikaLang/AST-stickies/tree/master/Esprima)
-
-<img src="https://paprika-dev.b0.upaiyun.com/n7j8KDa05xTZZokUEX0s2fLFHk75ShBrWHVwP54g.jpeg" width="800"/>
-
-掌握这个流程, 我们还可以做很多具体的优化和设计.
-
-> 瘦身
-
- - UglifyJS 和 Babili 压缩器本质上也是一个编译器, Babili 采用的就是 Babel 插件提供的编译工具链. 
- - 对于不同模块下的文件, Rollup 工具可以利用 Treeshaking 把它们打包到同一文件下的同一作用域,方便后续的压缩工作. 
- - webpack3.0 通过 webpack.optimize.ModuleConcatenationPlugin 也实现了Treeshaking.
-
-
-> 加速
-
-  - React 在渲染 Virtual DOM 时会比对前后差异, babel 插件可以把静态元素提取出来变成常量而不必参与比对,提高了渲染速度.
-
-<img src="https://paprika-dev.b0.upaiyun.com/HzsuYMarm1cnfEvSpn9TlDwdnzmq4UpnY2P6wEoA.jpeg" width="600"/>
-
-  - Relay Morden 为解决运行时分析 GraphQL query 的低效,提前在编译时就生成了 query 信息 即 Runtime Artifacts.
-
-<br>
-### OC
-
-OC 在 C 语言的基础上, 引入了 Smalltalk 的**消息机制** , 即通过 runtime 函数包重新翻译 AST , 如  ObjCMessageExpr 翻译成相应版本的 @objc_msgSend ; ObjCAutoreleasePoolStmt 翻译成 @Objc_autoreleasePoolPush/Pop.
-
-```
-  #import <Foundation/Foundation.h>
-  
-  int main() {
-     @autoreleasepool {
-        id obj = [NSOject new];
-        NSLog(@"Hello world: %@",obj);
-     }
-     return 0;
-  }
-```
-
-```
-clang -fmodules -fsyntax-only -Xclang -ast-dump main.m
-```
-
-<img src="https://paprika-dev.b0.upaiyun.com/tLVpRp2JzmfM2jYTP1acyiSvwyjzxd2HPBsxVWbp.jpeg" width="500"/>
-
-```
-clang -S -fobjc-arc -emit-llvm main.m -o main.ll
-```
-
-<img src="https://paprika-dev.b0.upaiyun.com/Xm3oB63wj5fxjbf1OIO3YkmBZVnB4MB4wB7DcFM2.jpeg" width="500"/>
-
-<img src="https://paprika-dev.b0.upaiyun.com/MTdbpkkdbT99xpmqmu5gPBGLnAgnMqGy01gjkzmW.jpeg" width="500" />
-
-PluginASTAction 是基于 consumer 的 AST 前端 Action 抽象基类
-ASTConsumer     用于客户读取AST的抽象基类
-RecursiveASTVisitor 深度优先搜索整个 AST，并访问每一个节点的基类
-
-根据需要重载相应的方法:
-- PluginASTAction::CreateASTConsumer
-- PluginASTAction::ParseArgs
-- ASTConsumer::HandleTranslationUnit
-- RecursiveASTVisitor::VisitDecl
-- RecursiveASTVisitor::VisitStmt
-
-<img src="https://paprika-dev.b0.upaiyun.com/PcPuAKd9vUBtOIFT4PY5MdWUJhZ6coEreRlgT5Ep.jpeg" width="600" />
-
-访问节点只需要重写该类型节点的Visit方法，比如重写VisitCXXRecordDecl方法，就可以访问所有 C++ 的类定义了.
-```
-class MyVisitor : public RecursiveASTVisitor<FindNamedClassVisitor> {
-public:
-    bool VisitCXXRecordDecl(CXXRecordDecl *decl) {
-        decl->dump();
-        return true; // 返回true继续遍历，false则直接停止
-    }
-};
-```
-
-具体参考这篇[[clang 插件的编写]](http://kangwang1988.github.io/tech/2016/10/31/write-your-first-clang-plugin.html) 和 [[clang-mapper 的原理]](https://www.jianshu.com/p/e19aafbaddca)
-
-<br>
-### Antlr4
-
-对比一下 Antlr4 的 [demo](https://github.com/paprikaLang/AST-stickies/tree/master/Antlr4-compiler) 如何实现:
-
-<img src="https://paprika-dev.b0.upaiyun.com/dLFqYKtwjcLnyxbd20xF4jkIAnZ5hUcBvtFGbbhJ.jpeg" width="400" />
-
-<img src="https://paprika-dev.b0.upaiyun.com/ae65aeV1rD8qvzUmF3zvJD0AKLtQ6S3CScFGDMuJ.jpeg" width="500"/>
-
-<br>
-### Swift
 SourceKitten
 
 >SourceKitten links and communicates with sourcekitd.framework to parse the Swift AST, extract comment docs for Swift or Objective-C projects, get syntax data for a Swift file and lots more
 
-Projects Built With SourceKitten:
-
-- SwiftLint: A tool to enforce Swift style and conventions.
-- Jazzy:     Soulful docs for Swift & Objective-C.
-- Sourcery:  Meta-programming for Swift, stop writing boilerplate code.
-
-
-<img src="https://paprika-dev.b0.upaiyun.com/TnwOl42tGUGeyhxDrnA1uM9aoW1wQBDgnruWpsFy.jpeg" width="750"/>
-
-[查看 sourcery demo](https://github.com/paprikaLang/AST-stickies/tree/master/Sourcery)
-
-### JSX
-
-如何不借助 React 实现 JSX ?  [查看demo](https://github.com/paprikaLang/AST-stickies/tree/jsx)
-
-` @jsx h ` 在 `babel/index.js` 中用于提示 babel-preset-react ,将 JSX 转换成 h 函数:
+JSON array of syntax highlighting information:
 
 ```
+[
+  {
+    "offset" : 0,
+    "length" : 6,
+    "type" : "source.lang.swift.syntaxtype.keyword"
+  },
+  {
+    "offset" : 7,
+    "length" : 10,
+    "type" : "source.lang.swift.syntaxtype.identifier"
+  },
+  {
+    "offset" : 18,
+    "length" : 14,
+    "type" : "source.lang.swift.syntaxtype.comment"
+  }
+]
+```
+
+Projects Built With SourceKitten:
+
+- jazzy: docs for Swift & Objective-C.
+- SwiftyMocky: As Swift doesn't support reflections well enough to allow building mocks in runtime, library depends on Sourcery.
+- Sourcery:  Meta-programming for Swift, stop writing boilerplate code.
+
+[查看 sourcery demo](https://github.com/paprikaLang/AST-alook/tree/master/sourcery)
+
+ **Sourcery** 这样的手法同样可以应用到 **JSX** 中. 
+
+  1. babel-preset-react 代替 SourceKit 的职责, 通过 `/** @jsx h */` 的方式将 JSX 转换成 `h(nodeName, attributes, ...args)` 这样的语法结构.
+
+```javascript
+let vdom = (
+	<div id="foo">
+		<p>Happy Hacking!</p>
+		<ul>{ foo(ITEMS) }</ul>
+	</div>
+);
+```
+
+```javascript
 var vdom = h(
   'div',
   { id: 'foo' },
@@ -133,33 +64,169 @@ var vdom = h(
 );
 ```
 
-我们可以自己实现 h 函数, 将它的参数转换为一个 VNode 的三个 property , 并形成 Virtual DOM Tree .
+ 2. 将 h 转换成 vdom , 再 JSON.stringify 转成 json, 就能实现自己的 **'SourceKitten'** 了.
 
-```
+```javascript
 function h(nodeName, attributes, ...args) {
   let children = args.length ? [].concat(...args) : null;
-  return { nodeName, attributes, children };
+  return { nodeName, attributes, children };  //返回的是一个 vdom
 }
 ```
 
-
-再将 Virtual DOM 转换为 Real DOM .
+```javascript
+let json = JSON.stringify(vdom, null, '  ');
+```
 
 ```
+{ 
+  "nodeName": "div",
+  "attributes": {
+    "id": "foo"
+  },
+  "children": [
+    {
+      "nodeName": "p",
+      "attributes": null,
+      "children": [
+        "Happy Hacking!"
+      ]
+    },
+    {
+      "nodeName": "ul",
+      "attributes": null,
+      "children": [
+        {
+          "nodeName": "li",
+          "attributes": null,
+          "children": [
+            " ",
+            "Vue",
+            " "
+          ]
+        },
+        ... ...
+      ]
+    }
+  ]
+}
+```
+
+ 3. 接下来将 vdom 转成 real dom , 实现 **'Sourcery'**.
+
+```javascript
 function render(vnode) {
-  if (typeof vnode==='string') return document.createTextNode(vnode);
-  let n = document.createElement(vnode.nodeName);
-  Object.keys(vnode.attributes || {}).forEach( k => n.setAttribute(k, vnode.attributes[k]) );
-  (vnode.children || []).forEach( c => n.appendChild(render(c)) );
-  return n;
+	if (typeof vnode==='string') return document.createTextNode(vnode);
+	let n = document.createElement(vnode.nodeName);
+	Object.keys(vnode.attributes || {}).forEach( k => n.setAttribute(k, vnode.attributes[k]) );
+	(vnode.children || []).forEach( c => n.appendChild(render(c)) );
+	return n;
 }
 ```
 
-<img src="https://paprika-dev.b0.upaiyun.com/s1QdYeCxGkhRdnGtYLJvGxSU50GkbmcZMWpiKKeq.jpeg" width="400"/>
+```javascript
+let dom = render(vdom);
+document.body.appendChild(dom);
+```
 
-最后呈现的效果:
+*不借助 React 解析 JSX 最终呈现的效果:* 
 
 <img src="https://paprika-dev.b0.upaiyun.com/EWRwKTRSBPU9ZLsaqnUZ0spWwdEPx0M9Li1wCuAo.jpeg" width="500" />
 
+[查看 jsx demo](https://github.com/paprikaLang/AST-alook/tree/master/jsx)
+
 <br>
+
+<br>
+
+第二部分, 我们尝试直接修改 AST 的语法结构来进一步扩展编程语言的表达能力, 大体思路一般都是这样的:
+
+ 1. 把源码转换为 AST (esprima)
+ 2. 遍历并更新 AST (estraverse)
+ 3. 将 AST 重新生成源码 (escodegen)
+
+<img src="https://paprika-dev.b0.upaiyun.com/n7j8KDa05xTZZokUEX0s2fLFHk75ShBrWHVwP54g.jpeg" width="600"/>
+
+玩儿过狼人杀的朋友一定也打过丘比特人狼恋的板子, 狼人同伴可以穿神同伴的衣服逃过查验, 反过来好人同伴也可以替狼同伴挡下一验. 所以如果你是丘比特, 你手上的代码是狼人还是好人呢?
+
+```javascript
+let code = 'var a = 1';
+const ast = esprima.parseScript(code);
+estraverse.traverse(ast, {
+    enter: function (node) {
+        node.kind = "let";
+    }
+});
+const transformCode = escodegen.generate(ast)
+// result: let a = 1
+```
+
+
+Elixir 通过 quote 和 unquote 构建起的宏系统也可以提供我们操作 AST 的环境, 并直接影响编译的结果. 对比上张图你可能会猜出 quote 的作用
+
+<img src="/img/elixir.jpg" width="500"/>
+
+quote:
+
+```
+iex(2)> expr = quote do: Sample.hello("tiyo", 500)
+{{:., [], [{:__aliases__, [alias: false], [:Sample]}, :hello]}, [],
+ ["tiyo", 500]}
+```
+
+unquote: 
+
+```
+iex> number = 13
+iex> Macro.to_string(quote do: 11 + number)
+"11 + number"
+iex> Macro.to_string(quote do: 11 + unquote(number))
+"11 + 13"
+```
+
+下面我们想实现当 @async 为 true 时异步执行 hello() ; @async 为 false 时同步执行, 如果 sleep 超过 @timeout 返回 @timeout_response
+
+```elixir
+defmodule Sample do
+	import AsyncTask
+	@async true
+	@timeout 1000
+	@timeout_response "no response"             // 以上都是 header; sample(header, do: body)是宏; sample 之后是 do: body
+	sample hello(name, timer \\ 10_000) do      // \\ 代表默认值
+		:timer.sleep(timer)      // 延迟返回
+		"hello, #{name}"         // 这里代表返回值
+	end
+end
+```
+
+```elixir
+defmodule AsyncTask do
+	defmacro sample(header, do: body) do
+		quote do
+			def unquote(header) do                        
+				case @async do
+					true -> spawn(fn -> unquote(body) end)  // 模式匹配: 如果 @async true 另开一个 process 
+					_  ->                                   // 模式匹配: 如果 @async 不为 true
+						caller = self()
+						spawn(fn -> send(caller, unquote(body)) end)  // 将消息传递给自己所在的 process 
+
+						receive do
+							message -> message                        // 收到消息并返回
+						after
+							@timeout -> @timeout_response             // 超时返回 @timeout_response 的值
+						end
+				end
+			end
+		end
+	end
+end
+```
+
+[查看 elixir demo](https://github.com/paprikaLang/AST-alook/tree/master/marco)
+
+
+
+
+
+
+
 
