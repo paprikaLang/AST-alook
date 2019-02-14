@@ -1,1 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  -std=c++1z -Werror -Wall -DDEBUG -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/calc.dir/main.cpp.o CMakeFiles/calc.dir/antlr4-runtime/calculationLexer.cpp.o CMakeFiles/calc.dir/antlr4-runtime/calculationParser.cpp.o  -o calc /usr/local/lib/libantlr4-runtime.dylib 

@@ -1,3 +1,4 @@
+
 ### JavaScript
 
 JS引擎在分词,解析,生成语法树 **AST** 之后, 像 `var a = 2` 这样的表达式会被处理成:
@@ -26,7 +27,7 @@ Esprima 可以将 AST 进行转换并重新生成代码, var a = 2 变成了 let
 
   - Relay Morden 为解决运行时分析 GraphQL query 的低效,提前在编译时就生成了 query 信息 即 Runtime Artifacts.
 
-
+<br>
 ### OC
 
 OC 在 C 语言的基础上, 引入了 Smalltalk 的**消息机制** , 即通过 runtime 函数包重新翻译 AST , 如  ObjCMessageExpr 翻译成相应版本的 @objc_msgSend ; ObjCAutoreleasePoolStmt 翻译成 @Objc_autoreleasePoolPush/Pop.
@@ -82,8 +83,8 @@ public:
 ```
 
 具体参考这篇[[clang 插件的编写]](http://kangwang1988.github.io/tech/2016/10/31/write-your-first-clang-plugin.html) 和 [[clang-mapper 的原理]](https://www.jianshu.com/p/e19aafbaddca)
-<br>
 
+<br>
 ### Antlr4
 
 对比一下 Antlr4 的 [demo](https://github.com/paprikaLang/AST-stickies/tree/master/Antlr4-compiler) 如何实现:
@@ -92,7 +93,7 @@ public:
 
 <img src="https://paprika-dev.b0.upaiyun.com/ae65aeV1rD8qvzUmF3zvJD0AKLtQ6S3CScFGDMuJ.jpeg" width="500"/>
 
-
+<br>
 ### Swift
 SourceKitten
 

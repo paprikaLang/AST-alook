@@ -1,8 +1,0 @@
-/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/install/local.dir
-/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/install/strip.dir
-/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/install.dir
-/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/list_install_components.dir
-/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/rebuild_cache.dir
-/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/edit_cache.dir
-/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/calc.dir
-/Users/paprika/Desktop/练习库/AST/Antlr4-compiler/Number/build/CMakeFiles/Antlr4-cpp.dir
