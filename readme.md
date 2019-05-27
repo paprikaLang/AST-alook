@@ -1,4 +1,4 @@
-<img src="https://paprika-dev.b0.upaiyun.com/mjO0HZwFO4wdoK8CsMiEbpcVofGbYy80ZuVaBLmP.jpeg" width="750"/>
+<img src="https://raw.githubusercontent.com/paprikaLang/paprikaLang.github.io/imgs/ast1.jpg" width="750"/>
 
 SourceKitten
 
@@ -6,7 +6,7 @@ SourceKitten
 
 JSON array of syntax highlighting information:
 
-```
+```shell
 [
   {
     "offset" : 0,
@@ -32,13 +32,13 @@ Projects Built With SourceKitten:
 - SwiftyMocky: As Swift doesn't support reflections well enough to allow building mocks in runtime, library depends on Sourcery.
 - Sourcery:  Meta-programming for Swift, stop writing boilerplate code.
 
-[查看 sourcery demo](https://github.com/paprikaLang/AST-alook/tree/master/sourcery)
+[[查看 sourcery demo]](https://github.com/paprikaLang/AST-alook/tree/master/Sourcery)
 
 <br>
 
- **Sourcery** 这样的手法我们可以在 **JSX** 上实践一下.
+**Sourcery** 这样的手法我们可以在 **JSX** 上实践一下. 
 
-  1. babel-preset-react 通过 `/** @jsx h */` 的方式将 JSX 转换成 `h(nodeName, attributes, ...args)` 这样的结构, 相当于 SourceKit .
+- babel-preset-react 通过 `/** @jsx h */` 的方式将 JSX 转换成 `h(nodeName, attributes, ...args)` 这样的结构, 相当于 SourceKit .
 
 ```javascript
 let vdom = (
@@ -66,12 +66,12 @@ var vdom = h(
 );
 ```
 
- 2. 将 h 函数转成 vdom , 再 JSON.stringify 转 json 字符串, 实现 **'SourceKitten'** .
+- 将 h 函数转成 vdom , 再 JSON.stringify 转 json 字符串, 实现 **'SourceKitten'** .
 
 ```javascript
 function h(nodeName, attributes, ...args) {
   let children = args.length ? [].concat(...args) : null;
-  return { nodeName, attributes, children };  
+  return { nodeName, attributes, children };  //返回的是一个 vdom
 }
 ```
 
@@ -79,7 +79,7 @@ function h(nodeName, attributes, ...args) {
 let jsonString = JSON.stringify(vdom, null, '  ');
 ```
 
-```
+```shell
 { 
   "nodeName": "div",
   "attributes": {
@@ -113,7 +113,7 @@ let jsonString = JSON.stringify(vdom, null, '  ');
 }
 ```
 
- 3. 接下来将 vdom 转成 dom , 实现 **'Sourcery'**.
+- 接下来将 vdom 转成 dom , 实现 **'Sourcery'**.
 
 ```javascript
 function render(vnode) {
@@ -132,10 +132,9 @@ document.body.appendChild(dom);
 
 *最终呈现的效果:* 
 
-<img src="https://paprika-dev.b0.upaiyun.com/EWRwKTRSBPU9ZLsaqnUZ0spWwdEPx0M9Li1wCuAo.jpeg" width="500" />
+<img src="https://raw.githubusercontent.com/paprikaLang/paprikaLang.github.io/imgs/ast2.jpg" width="500" />
 
-[查看 jsx demo](https://github.com/paprikaLang/AST-alook/tree/master/jsx)
-
+[[查看 jsx demo]](https://github.com/paprikaLang/AST-alook/tree/master/jsx)
 
 <br>
 
@@ -143,12 +142,11 @@ document.body.appendChild(dom);
 
 第二部分, 我们尝试直接修改 AST 的语法结构来进一步扩展编程语言的表达能力:
 
- 1. 把源码转换为 AST (esprima)
- 2. 遍历并更新 AST (estraverse)
- 3. 将 AST 重新生成源码 (escodegen)
+ - 把源码转换为 AST (esprima)
+ - 遍历并更新 AST (estraverse)
+ - 将 AST 重新生成源码 (escodegen)
 
-
-<img src="https://paprika-dev.b0.upaiyun.com/n7j8KDa05xTZZokUEX0s2fLFHk75ShBrWHVwP54g.jpeg" width="600"/>
+<img src="https://raw.githubusercontent.com/paprikaLang/paprikaLang.github.io/imgs/ast3.jpg" width="600"/>
 
 
 ```javascript
@@ -162,18 +160,17 @@ estraverse.traverse(ast, {
 const transformCode = escodegen.generate(ast)
 // result: let a = 1
 ```
+[[查看 esprima demo]](https://github.com/paprikaLang/AST-alook/tree/master/Esprima)
 
 <br>
 
-**Elixir** 通过 quote 和 unquote 构建起的宏系统也可以提供我们操作 AST 的环境, 并直接影响编译的结果. 
+**Elixir** 通过 quote 和 unquote 构建起的宏系统也可以提供我们操作 AST 的环境, 并直接影响编译的结果. 对比上张图你可能会猜出 quote 的作用
 
-对比上张图你可能会猜出 quote 的作用.
-
-<img src="https://paprika-dev.b0.upaiyun.com/Uwlw3GamP9HqxAlhHNyuis6YDJkEhedf7p5cE5zK.jpeg" width="500"/>
+<img src="https://raw.githubusercontent.com/paprikaLang/paprikaLang.github.io/imgs/ast4.jpg" width="500"/>
 
 quote:
 
-```elixir
+```shell
 iex(2)> expr = quote do: Sample.hello("tiyo", 500)
 {{:., [], [{:__aliases__, [alias: false], [:Sample]}, :hello]}, [],
  ["tiyo", 500]}
@@ -181,7 +178,7 @@ iex(2)> expr = quote do: Sample.hello("tiyo", 500)
 
 unquote: 
 
-```elixir
+```shell
 iex> number = 13
 iex> Macro.to_string(quote do: 11 + number)
 "11 + number"
@@ -195,16 +192,15 @@ iex> Macro.to_string(quote do: 11 + unquote(number))
 
 2. @async 为 false 时同步执行, 如果 sleep 超过 @timeout 返回 @timeout_response
 
-
 ```elixir
 defmodule Sample do
   import AsyncTask
   @async true
   @timeout 1000
-  @timeout_response "no response"     // 以上都是 header; sample(header, do: body)是宏; sample 之后是 do: body
-  sample hello(name, timer \\ 10_000) do      // \\ 代表默认值
-    :timer.sleep(timer)               // 延迟返回
-    "hello, #{name}"                  // 这里代表返回值
+  @timeout_response "no response"      // 以上都是 header; sample(header, do: body)是宏; sample 之后是 do: body
+  sample hello(name, timer \\ 10_000) do    // \\ 代表默认值
+    :timer.sleep(timer)      // 延迟返回
+    "hello, #{name}"         // 这里代表返回值
   end
 end
 ```
@@ -232,12 +228,11 @@ defmodule AsyncTask do
 end
 ```
 
-[查看 elixir demo](https://github.com/paprikaLang/AST-alook/tree/master/marco)
+[[查看 elixir demo]](https://github.com/paprikaLang/AST-alook/tree/master/macro)
 
 <br>
 
 <br>
-
 
 第三部分:   [[解析 如何构建一个自制的 Webpack ]](https://github.com/chinanf-boy/minipack-explain)
 
@@ -289,19 +284,19 @@ end
 自调函数参数 `modules` 
 
 ```javascript
-// mod 是由所有模块的依赖关系图遍历得到的
-// 而模块的依赖关系是借助 AST 的 ImportDeclaration 找到的
+// mod 是由所有模块的依赖关系图遍历得到的.
+// 而模块的依赖关系是借助 AST 的 ImportDeclaration 找到的.
 modules += `${mod.id}: [
-  // 执行函数中的 mod.code 是由 transformFromAst(ast, null,{presets: ['env'],}) 生成的
+  // 执行函数中的 mod.code 是由 transformFromAst(ast, null,{presets: ['env'],}) 生成的.
   function (require, module, exports) { ${mod.code} }, 
-  // mod.mapping 方便 mod 通过执行函数中 require 依赖的模块查找到它们的 id 
+  // mod.mapping 方便 mod 通过执行函数中 require 依赖的模块查找到它们的 id .
   ${JSON.stringify(mod.mapping)},  
 ],`;
 ```
 
 
-依据 babel-core 生成的代码 `var _message = require("./message.js");` , require 函数需要在依赖模块的执行函数中获取该模块的
-exports 并将其作为返回值传递回来. 这个实现 可以和 我在另一篇文章中提到的 Golang 的 `netpoll 函数` 一起对比记忆.
+依据 babel-core 生成的代码 `var _message = require("./message.js");` , require 需要在依赖模块的执行函数中获得该模块的
+exports 并将其作为返回值传递回来. 这个实现和我在另一篇文章中提到的 Golang 的 `netpoll 函数` 类似.
 
 ```go
 // netpoll 函数
@@ -321,18 +316,4 @@ const module = { exports : {} };
 fn(localRequire, module, module.exports);
 return module.exports;
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
